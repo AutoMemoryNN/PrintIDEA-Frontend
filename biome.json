@@ -9,6 +9,21 @@
 			"**/coverage/**"
 		]
 	},
+	"css": {
+		"linter": {
+			"enabled": true
+		},
+		"formatter": {
+			"enabled": true,
+			"indentStyle": "tab",
+			"indentWidth": 4,
+			"lineEnding": "lf"
+		},
+		"parser": {
+			"allowWrongLineComments": false,
+			"cssModules": true
+		}
+	},
 	"formatter": {
 		"formatWithErrors": true,
 		"indentStyle": "tab",
@@ -35,6 +50,7 @@
 	},
 	"linter": {
 		"enabled": true,
+		"ignore": ["entry.client.tsx", "entry.server.tsx"],
 		"rules": {
 			"recommended": true,
 			"complexity": {
