@@ -6,14 +6,21 @@ import {
 import styles from './auth.module.css';
 import React from 'react';
 
-function AuthBox(): React.ReactNode {
-	const responseMessage = (response: CredentialResponse): void => {
-		console.log('Google Login Success:', response);
+import axios from 'axios';
+
+const handleResponseMessage =
+	(provider: string) =>
+	async (response: CredentialResponse): Promise<void> => {
+		console.log(`${provider} Login Success:`, response);
+
+		await axios.post('/auth', new URLSearchParams({ provider }));
 	};
 
-	const errorMessage = (): void => {
-		console.log('Google Login Error');
-	};
+const handleErrorMessage = (provider: string) => (): void => {
+	console.error(`${provider} Login Failed`);
+};
+
+export default function AuthBox(): React.ReactNode {
 	return (
 		<div className={styles.authBox}>
 			<h1 className={styles.welcomeText}>Welcome!</h1>
@@ -22,12 +29,10 @@ function AuthBox(): React.ReactNode {
 			>
 				<h1>Log-in</h1>
 				<GoogleLogin
-					onSuccess={responseMessage}
-					onError={errorMessage}
+					onSuccess={handleResponseMessage('google')}
+					onError={handleErrorMessage('google')}
 				/>
 			</GoogleOAuthProvider>
 		</div>
 	);
 }
-
-export default AuthBox;
