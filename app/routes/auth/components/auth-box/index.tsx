@@ -1,12 +1,15 @@
+import { useMsal } from '@azure/msal-react';
+import { Button } from '@heroui/button';
 import {
 	CredentialResponse,
 	GoogleLogin,
 	GoogleOAuthProvider,
 } from '@react-oauth/google';
-import styles from './auth.module.css';
-import React from 'react';
 
 import axios from 'axios';
+import React from 'react';
+
+import styles from './auth.module.css';
 
 const handleResponseMessage =
 	(provider: string) =>
@@ -20,7 +23,13 @@ const handleErrorMessage = (provider: string) => (): void => {
 	console.error(`${provider} Login Failed`);
 };
 
-export default function AuthBox(): React.ReactNode {
+export function AuthBox(): React.ReactNode {
+	const { instance } = useMsal();
+
+	const microsoftLogin = (): void => {
+		instance.loginPopup().catch((e) => handleErrorMessage(e)());
+	};
+
 	return (
 		<div className={styles.authBox}>
 			<h1 className={styles.welcomeText}>Welcome!</h1>
@@ -33,6 +42,7 @@ export default function AuthBox(): React.ReactNode {
 					onError={handleErrorMessage('google')}
 				/>
 			</GoogleOAuthProvider>
+			<Button onClick={microsoftLogin}>Log-in with Microsoft</Button>
 		</div>
 	);
 }

@@ -12,6 +12,8 @@
 		"format": "biome format --write ."
 	},
 	"dependencies": {
+		"@azure/msal-browser": "4.3.0",
+		"@azure/msal-react": "3.0.5",
 		"@heroui/button": "2.2.10",
 		"@heroui/system": "2.4.7",
 		"@heroui/theme": "2.4.6",

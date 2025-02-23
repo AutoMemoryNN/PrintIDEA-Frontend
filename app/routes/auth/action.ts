@@ -1,6 +1,7 @@
 import type { ActionFunctionArgs, TypedResponse } from '@remix-run/node';
+
 import { redirect } from '@remix-run/node';
-import { authCookie } from '~/cookies.server';
+import { authCookie } from '@shared/lib/server/cookies';
 
 export async function action({
 	request,
@@ -18,8 +19,4 @@ export async function action({
 			'Set-Cookie': await authCookie.serialize(cookieData),
 		},
 	});
-}
-
-export default function AuthAction(): null {
-	return null; // there is no UI for this route
 }

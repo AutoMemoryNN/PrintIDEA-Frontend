@@ -1,10 +1,11 @@
 import { createCookie } from '@remix-run/node';
+import { getSafeEnvSecret } from '@shared/lib/server/security';
 
-export const authCookie = createCookie(process.env.NODE_ENV, {
+export const authCookie = createCookie('session', {
 	path: '/',
 	httpOnly: true,
 	secure: process.env.NODE_ENV === 'production',
 	sameSite: 'strict',
 	maxAge: 60 * 60 * 24 * 7,
-	secrets: [process.env.COOKIE_SECRET || 'default-secret'],
+	secrets: [getSafeEnvSecret('COOKIE_SECRET')],
 });

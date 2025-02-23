@@ -1,5 +1,7 @@
 node_modules
 
+scripts
+
 pnpm-lock.yaml
 
 /.cache
