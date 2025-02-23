@@ -1,5 +1,4 @@
 import { AuthBox } from './components/auth-box';
-export { action } from './action';
 
 import React from 'react';
 

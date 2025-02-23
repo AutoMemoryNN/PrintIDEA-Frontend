@@ -6,17 +6,17 @@ import {
 	GoogleOAuthProvider,
 } from '@react-oauth/google';
 
-import axios from 'axios';
+import cookies from 'js-cookie';
 import React from 'react';
 
 import styles from './auth.module.css';
 
 const handleResponseMessage =
 	(provider: string) =>
-	async (response: CredentialResponse): Promise<void> => {
+	(response: CredentialResponse): void => {
 		console.log(`${provider} Login Success:`, response);
-
-		await axios.post('/auth', new URLSearchParams({ provider }));
+		const token = response.credential ?? '';
+		cookies.set('session', token);
 	};
 
 const handleErrorMessage = (provider: string) => (): void => {
