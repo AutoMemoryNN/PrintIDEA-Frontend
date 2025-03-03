@@ -1,23 +1,20 @@
-import type { loader } from './loader';
-
-import { Form, useLoaderData } from '@remix-run/react';
-export { loader } from './loader';
+import { Form } from '@remix-run/react';
+import { useSession } from '@shared/lib/session';
 export { action } from './action';
 
 import React from 'react';
 
 export default function Index(): React.ReactElement {
-	const { welcomeMessage, cookie } = useLoaderData<typeof loader>();
+	const session = useSession();
+	console.log(session);
 
 	return (
 		<div>
-			<h1>{welcomeMessage}</h1>
+			<h1>Welcome</h1>
 			<h3>Dear user:</h3>
-			<p>
-				<strong>Cookie:</strong> {cookie}
-			</p>
 
 			<Form method='post'>
+				<h1>user: {session.username}</h1>
 				<input type='text' name='username' placeholder='Username' />
 				<button type='submit'>Yea! that name</button>
 			</Form>
