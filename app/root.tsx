@@ -10,7 +10,6 @@ import {
 	Scripts,
 	ScrollRestoration,
 } from '@remix-run/react';
-import { AppFooter } from '@shared/components/layout/app-footer';
 
 import React from 'react';
 
@@ -58,7 +57,6 @@ export function Layout({
 					<ScrollRestoration />
 					<Scripts />
 				</HeroUIProvider>
-				<AppFooter />
 			</body>
 		</html>
 	);

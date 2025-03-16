@@ -9,7 +9,7 @@ import cookies from 'js-cookie';
 import React from 'react';
 
 import { useMsal } from '@azure/msal-react';
-import styles from './auth.module.css';
+import styles from '@shared/styles/app-layout.module.css';
 
 export function AuthBox(): React.ReactNode {
 	const navigate = useNavigate();
@@ -36,7 +36,7 @@ export function AuthBox(): React.ReactNode {
 				return navigate('/welcome');
 			}
 
-			return navigate('/');
+			return navigate('/organization');
 		},
 		onError: (errorResponse): void => console.log(errorResponse),
 	});
@@ -92,12 +92,14 @@ export function AuthBox(): React.ReactNode {
 	};
 
 	return (
-		<div className={styles.authBox}>
-			<h1 className={styles.welcomeText}>Welcome!</h1>
-			<h1>Log-in</h1>
-			<Button onPress={handleGoogleLogin}>Log-in with Google</Button>
-			<Button onPress={handleMicrosoftLogin}>
-				Log-in with Microsoft
+		<div className={styles['decorative-box-lg']}>
+			<h1 className={styles.welcomeText}>DevDistillery</h1>
+			<h4>Log-in</h4>
+			<Button onPress={handleGoogleLogin} color='primary' size='lg'>
+				Log-in with <b>Google</b>
+			</Button>
+			<Button onPress={handleMicrosoftLogin} color='primary' size='lg'>
+				Log-in with <b>Microsoft</b>
 			</Button>
 			<Button onPress={logout}>Logout</Button>
 		</div>

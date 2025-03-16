@@ -5,6 +5,6 @@ export interface LoginResponse {
 
 export interface SessionData {
 	username: string;
+	alias: string;
 	email: string;
-	avatar: string;
 }
