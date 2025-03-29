@@ -16,11 +16,10 @@ export function AuthBox(): React.ReactNode {
 	const { instance } = useMsal();
 	const openGoogleLogin = useGoogleLogin({
 		onSuccess: async (tokenResponse): Promise<void> => {
-			if (cookies.get('session')) {
-				await logout();
-			}
+			await logout();
+
 			const userInfo = await axios.get(
-				'http://localhost:5173/mocks/google/', // This is the URL of the mock server
+				'http://localhost:3000/auth?provider=google',
 				{
 					headers: {
 						authorization: `Bearer ${tokenResponse.access_token}`,
@@ -28,9 +27,11 @@ export function AuthBox(): React.ReactNode {
 				},
 			);
 
+			console.log(userInfo);
+
 			const data = userInfo.data as LoginResponse;
 
-			cookies.set('session', data.token);
+			cookies.set('session', data.jwt);
 
 			if (data.isNewUser) {
 				return navigate('/welcome');
@@ -43,17 +44,23 @@ export function AuthBox(): React.ReactNode {
 
 	const logout = async (): Promise<void> => {
 		if (!cookies.get('session')) {
-			return;
+			return Promise.resolve();
 		}
 
-		await axios.post('http://localhost:5173/mocks/logout', {
-			// This is the URL of the mock server
-			headers: {
-				authorization: `Bearer ${cookies.get('session')}`,
+		const response = await axios.delete(
+			'http://localhost:3000/auth/logout',
+			{
+				headers: {
+					authorization: `Bearer ${cookies.get('session')}`,
+				},
 			},
-		});
+		);
+
+		console.log(response);
+
 		cookies.remove('session');
 		console.log('Logged out');
+		return Promise.resolve();
 	};
 	const handleMicrosoftLogin = async (): Promise<void> => {
 		try {
@@ -77,7 +84,7 @@ export function AuthBox(): React.ReactNode {
 				},
 			);
 			const data = userInfo.data as LoginResponse;
-			cookies.set('session', data.token);
+			cookies.set('session', data.jwt);
 			if (data.isNewUser) {
 				return navigate('/welcome');
 			}
