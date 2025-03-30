@@ -10,3 +10,15 @@ export interface SessionData {
 	email: string;
 	role: string;
 }
+
+export interface BaseBackendResponse<T, E> {
+	message: string;
+	data?: T;
+	errors?: E;
+}
+
+export interface SuccessBackendResponse<T>
+	extends BaseBackendResponse<T, never> {
+	message: string;
+	data: T;
+}

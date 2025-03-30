@@ -103,10 +103,8 @@ const Settings: FC = () => {
 				</Button>
 			</div>
 
-			{/* Conditional Content */}
 			<div className='bg-white p-6 rounded-lg shadow-md'>
 				{showOrgSettings ? (
-					// Organization Settings
 					<Form className='space-y-6' onSubmit={handleOrgSubmit}>
 						<h2 className='text-xl font-semibold mb-4'>
 							Organization Information
