@@ -6,10 +6,6 @@ h1 {
 	@apply text-3xl font-bold text-gray-900 dark:text-white;
 }
 
-.text-primary {
-	@apply text-gray-800 dark:text-gray-200;
-}
-
 html,
 body {
 	@apply bg-white dark:bg-gray-950;

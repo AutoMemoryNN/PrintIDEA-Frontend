@@ -1,0 +1,7 @@
+.routeContainer {
+	@apply w-screen h-screen overflow-hidden grid place-items-center bg-gradient-to-br from-primary-400 to-secondary-400;
+}
+
+.routeContent {
+	@apply w-screen max-w-xl shadow-sm bg-background p-8 rounded-lg flex flex-col gap-4;
+}

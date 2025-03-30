@@ -5,8 +5,10 @@ import { ReactNode } from 'react';
 export default function AppLayout(): ReactNode {
 	return (
 		<>
-			<Outlet />
-			<AppFooter />
+			<div className='grid grid-rows-[100dvh,auto] overflow-x-hidden'>
+				<Outlet />
+				<AppFooter />
+			</div>
 		</>
 	);
 }

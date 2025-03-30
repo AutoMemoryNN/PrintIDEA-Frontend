@@ -1,5 +1,5 @@
 .main-container {
-	@apply flex min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 dark:from-gray-900 dark:to-gray-800;
+	@apply flex min-h-screen bg-gradient-to-br from-primary-400 to-secondary-400 dark:from-gray-900 dark:to-gray-800;
 }
 
 .aside-nav {

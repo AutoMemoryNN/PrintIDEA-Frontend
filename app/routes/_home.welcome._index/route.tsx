@@ -5,8 +5,9 @@ import { useNavigate } from '@remix-run/react';
 import { axios } from '@shared/lib/axios';
 import { useSession } from '@shared/lib/session';
 
-import styles from '@shared/styles/app-layout.module.css';
 import React from 'react';
+
+import styles from './welcome.module.css';
 
 export default function Index(): React.ReactElement {
 	const session = useSession();
@@ -30,32 +31,28 @@ export default function Index(): React.ReactElement {
 	};
 
 	return (
-		<div className={styles['app-container']}>
-			<div className={styles['decorative-box-lg']}>
-				<h1 className='text-3xl font-bold text-blue-600 mb-4'>
-					{username ? `Welcome ${username}!` : 'Hi there unknown!'}
+		<div className={styles.routeContainer}>
+			<Form onSubmit={handleSubmit} className={styles.routeContent}>
+				<h1 className='text-3xl font-bold text-foreground truncate text-center'>
+					Hi there{' '}
+					<span className='text-transparent bg-gradient-to-r from-primary-400 to-secondary-400 bg-clip-text'>
+						{username || 'Unknown'}!
+					</span>{' '}
+					👋
 				</h1>
-				<Form
-					className='flex flex-col space-y-4'
-					onSubmit={handleSubmit}
-				>
-					<div>
-						<Input
-							color='primary'
-							label='Nickname'
-							type='text'
-							name='username'
-							isRequired={true}
-							size='lg'
-							value={username}
-							onValueChange={setUsername}
-						/>
-					</div>
-					<Button type='submit' color='primary'>
-						Yea! That name
-					</Button>
-				</Form>
-			</div>
+				<Input
+					label='Nickname'
+					type='text'
+					name='username'
+					isRequired={true}
+					size='lg'
+					value={username}
+					onValueChange={setUsername}
+				/>
+				<Button type='submit' color='primary' size='lg'>
+					Yeah! That name
+				</Button>
+			</Form>
 		</div>
 	);
 }

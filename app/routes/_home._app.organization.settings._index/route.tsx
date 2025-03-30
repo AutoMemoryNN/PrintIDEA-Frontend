@@ -4,7 +4,6 @@ import { Form, useNavigate } from '@remix-run/react';
 import { ChangeEvent, FC, FormEvent, useState } from 'react';
 
 import { useSession } from '@shared/lib/session';
-import styles from '@shared/styles/app-layout.module.css';
 
 const Settings: FC = () => {
 	const navigate = useNavigate();
@@ -72,7 +71,7 @@ const Settings: FC = () => {
 	};
 
 	return (
-		<div className='min-w-full min-h-screen max-w-4xl mx-auto p-6 bg-gradient-to-br from-blue-500 to-purple-600 dark:from-gray-900 dark:to-gray-800'>
+		<div className='min-w-full min-h-screen max-w-4xl mx-auto p-6 bg-gradient-to-br from-primary to-secondary dark:from-gray-900 dark:to-gray-800'>
 			<h1 className='text-2xl font-bold mb-6'>Settings</h1>
 
 			{/* Navigation Tabs */}
@@ -83,8 +82,8 @@ const Settings: FC = () => {
 						color='primary'
 						className={`${
 							showOrgSettings
-								? 'border-b-2 border-blue-500 text-blue-600'
-								: 'text-gray-500'
+								? 'border-b-2 border-primary text-primary'
+								: 'text-default'
 						}`}
 						onPress={(): void => setShowOrgSettings(true)}
 					>
@@ -95,8 +94,8 @@ const Settings: FC = () => {
 					variant='ghost'
 					className={`${
 						!showOrgSettings
-							? 'border-b-2 border-blue-500 text-blue-600'
-							: 'text-gray-500'
+							? 'border-b-2 border-primary text-primary'
+							: 'text-default'
 					}`}
 					onPress={(): void => setShowOrgSettings(false)}
 				>

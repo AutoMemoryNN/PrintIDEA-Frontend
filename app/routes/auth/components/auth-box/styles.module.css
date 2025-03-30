@@ -1,0 +1,15 @@
+.mainContainer {
+	@apply w-screen max-w-[32rem] flex flex-col items-center justify-center p-4 gap-4;
+}
+
+.button {
+	@apply w-full;
+}
+
+.title {
+	@apply text-3xl font-bold text-center text-primary-500 flex gap-2;
+}
+
+.titleAccent {
+	@apply bg-gradient-to-tr from-danger to-primary bg-clip-text text-transparent;
+}

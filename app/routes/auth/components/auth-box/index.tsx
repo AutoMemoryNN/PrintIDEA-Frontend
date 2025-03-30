@@ -1,5 +1,6 @@
 import type { LoginResponse } from '@shared/types';
 
+import { useMsal } from '@azure/msal-react';
 import { Button } from '@heroui/button';
 import { useGoogleLogin } from '@react-oauth/google';
 import { useNavigate } from '@remix-run/react';
@@ -8,8 +9,7 @@ import { axios } from '@shared/lib/axios';
 import cookies from 'js-cookie';
 import React from 'react';
 
-import { useMsal } from '@azure/msal-react';
-import styles from '@shared/styles/app-layout.module.css';
+import styles from './styles.module.css';
 
 export function AuthBox(): React.ReactNode {
 	const navigate = useNavigate();
@@ -19,7 +19,7 @@ export function AuthBox(): React.ReactNode {
 			await logout();
 
 			const userInfo = await axios.get(
-				'http://localhost:3000/auth?provider=google',
+				'http://localhost:3000/login?provider=google',
 				{
 					headers: {
 						authorization: `Bearer ${tokenResponse.access_token}`,
@@ -47,14 +47,11 @@ export function AuthBox(): React.ReactNode {
 			return Promise.resolve();
 		}
 
-		const response = await axios.delete(
-			'http://localhost:3000/auth/logout',
-			{
-				headers: {
-					authorization: `Bearer ${cookies.get('session')}`,
-				},
+		const response = await axios.delete('http://localhost:3000/login', {
+			headers: {
+				authorization: `Bearer ${cookies.get('session')}`,
 			},
-		);
+		});
 
 		console.log(response);
 
@@ -99,16 +96,36 @@ export function AuthBox(): React.ReactNode {
 	};
 
 	return (
-		<div className={styles['decorative-box-lg']}>
-			<h1 className={styles.welcomeText}>DevDistillery</h1>
-			<h4>Log-in</h4>
-			<Button onPress={handleGoogleLogin} color='primary' size='lg'>
+		<main className={styles.mainContainer}>
+			<h1 className={styles.title}>
+				Print
+				<span className={styles.titleAccent}>Idea!</span>
+			</h1>
+			<h2>Log-in</h2>
+			<Button
+				className={styles.button}
+				onPress={handleGoogleLogin}
+				color='primary'
+				size='lg'
+			>
 				Log-in with <b>Google</b>
 			</Button>
-			<Button onPress={handleMicrosoftLogin} color='primary' size='lg'>
+			<Button
+				className={styles.button}
+				onPress={handleMicrosoftLogin}
+				color='primary'
+				size='lg'
+			>
 				Log-in with <b>Microsoft</b>
 			</Button>
-			<Button onPress={logout}>Logout</Button>
-		</div>
+			<Button
+				className={styles.button}
+				onPress={logout}
+				color='danger'
+				size='lg'
+			>
+				Logout
+			</Button>
+		</main>
 	);
 }

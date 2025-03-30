@@ -5,8 +5,10 @@ import { AuthBox } from './components/auth-box';
 import { PublicClientApplication } from '@azure/msal-browser';
 import { AppFooter } from '@shared/components/layout/app-footer';
 
-import styles from '@shared/styles/app-layout.module.css';
 import React from 'react';
+import styles from './auth.module.css';
+
+export { meta } from './meta';
 
 export default function Index(): React.ReactNode {
 	const msalConfig = {
