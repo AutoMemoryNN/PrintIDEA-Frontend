@@ -1,7 +1,6 @@
 import { Skeleton } from '@heroui/skeleton';
 import { CalendarDots, CheckSquare } from '@phosphor-icons/react';
 import { Link } from '@remix-run/react';
-import { axios } from '@shared/lib/axios';
 import { useQuery } from '@tanstack/react-query';
 
 interface Project {
@@ -32,7 +31,7 @@ const Project = ({
 			className='border border-default-300 rounded-small grid grid-rows-[2rem,1fr,2rem] gap-2 py-2 px-4 h-36 hover:shadow-small transition-shadow'
 		>
 			<div className='flex items-center justify-between'>
-				<h2 className='text-lg font-medium'>{name}</h2>
+				<h2 className='text-lg font-medium text-foreground'>{name}</h2>
 				<div className='flex gap-x-2 pl-1.5 pr-2 py-1 justify-between rounded-full border border-success bg-success-50/20'>
 					<div className='flex items-center justify-center w-3.5 h-3.5 rounded-full bg-success/30 border border-success/50' />
 					<span className='text-tiny text-center text-success-700'>

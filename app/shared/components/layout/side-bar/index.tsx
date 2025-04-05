@@ -70,7 +70,9 @@ export function SideBar(): React.ReactNode {
 			<div className='flex flex-col gap-4 bg-default-100 p-4 border-r border-default-300'>
 				<div className='grid grid-rows-2 grid-cols-[4rem,1fr] h-16 gap-x-2'>
 					<div className='bg-default-300 rounded-full w-12 h-12 row-span-2 self-center justify-self-center' />
-					<h3 className='self-end font-medium'>{userAlias}</h3>
+					<h3 className='self-end font-medium text-foreground'>
+						{userAlias}
+					</h3>
 					<p className='text-small text-default-600'>{userEmail}</p>
 				</div>
 				<div className='bg-default-300 w-[23rem] h-px relative -translate-x-[2rem]' />
