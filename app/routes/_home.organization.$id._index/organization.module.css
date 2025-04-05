@@ -1,3 +1,0 @@
-.mainContainer {
-	@apply flex min-h-screen bg-gradient-to-br from-primary-400 to-secondary-400 dark:from-gray-900 dark:to-gray-800;
-}

@@ -1,11 +1,10 @@
+import { PublicClientApplication } from '@azure/msal-browser';
 import { MsalProvider } from '@azure/msal-react';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { AuthBox } from './components/auth-box';
 
-import { PublicClientApplication } from '@azure/msal-browser';
-import { AppFooter } from '@shared/components/layout/app-footer';
-
 import React from 'react';
+
 import styles from './auth.module.css';
 
 export { meta } from './meta';
@@ -31,7 +30,6 @@ export default function Index(): React.ReactNode {
 					</MsalProvider>
 				</div>
 			</div>
-			<AppFooter />
 		</>
 	);
 }

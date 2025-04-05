@@ -18,14 +18,11 @@ export function AuthBox(): React.ReactNode {
 		onSuccess: async (tokenResponse): Promise<void> => {
 			await logout();
 
-			const userInfo = await axios.get(
-				'http://localhost:3000/login?provider=google',
-				{
-					headers: {
-						authorization: `Bearer ${tokenResponse.access_token}`,
-					},
+			const userInfo = await axios.get('/login?provider=google', {
+				headers: {
+					authorization: `Bearer ${tokenResponse.access_token}`,
 				},
-			);
+			});
 
 			console.log(userInfo);
 
@@ -47,7 +44,7 @@ export function AuthBox(): React.ReactNode {
 			return Promise.resolve();
 		}
 
-		const response = await axios.delete('http://localhost:3000/login', {
+		const response = await axios.delete('/login', {
 			headers: {
 				authorization: `Bearer ${cookies.get('session')}`,
 			},
@@ -72,14 +69,11 @@ export function AuthBox(): React.ReactNode {
 				account: loginResponse.account,
 			});
 
-			const userInfo = await axios.get(
-				'http://localhost:5173/mocks/microsoft/',
-				{
-					headers: {
-						authorization: `Bearer ${accessToken}`,
-					},
+			const userInfo = await axios.get('/mocks/microsoft/', {
+				headers: {
+					authorization: `Bearer ${accessToken}`,
 				},
-			);
+			});
 			const data = userInfo.data as LoginResponse;
 			cookies.set('session', data.jwt);
 			if (data.isNewUser) {

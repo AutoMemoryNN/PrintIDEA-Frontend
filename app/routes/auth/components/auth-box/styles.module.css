@@ -1,5 +1,5 @@
 .mainContainer {
-	@apply w-screen max-w-[32rem] flex flex-col items-center justify-center p-4 gap-4;
+	@apply w-screen max-w-[24rem] flex flex-col items-center justify-center p-4 gap-4;
 }
 
 .button {
