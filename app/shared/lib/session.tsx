@@ -17,7 +17,7 @@ export async function getTokenData(
 	try {
 		const { payload } = await jwtVerify(token, publicKey);
 		const { id, username, alias, email, role } = payload;
-		const session = { id, username, alias, email, role };
+		const session = { id, username, alias, email, role, token };
 		return session as SessionData;
 	} catch (_error) {
 		return null;

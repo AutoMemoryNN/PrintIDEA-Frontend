@@ -9,6 +9,7 @@ export interface SessionData {
 	alias: string;
 	email: string;
 	role: string;
+	token: string;
 }
 
 export interface BaseBackendResponse<T, E> {
@@ -21,4 +22,23 @@ export interface SuccessBackendResponse<T>
 	extends BaseBackendResponse<T, never> {
 	message: string;
 	data: T;
+}
+
+export interface Organization {
+	id: string;
+	name: string;
+	description: string;
+	createdAt: string;
+}
+
+export interface Project {
+	id: string;
+	name: string;
+	description: string;
+	status: string;
+	priority: string;
+	totalTasks: number;
+	completedTasks: number;
+	startDate?: string | undefined;
+	endDate?: string | undefined;
 }

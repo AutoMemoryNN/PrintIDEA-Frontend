@@ -1,0 +1,63 @@
+.projectCard {
+	@apply border border-default-300 rounded-small grid grid-rows-[2rem,1fr,2rem] gap-2 py-2 px-4 h-36 hover:shadow-small transition-shadow;
+}
+
+.projectHeader {
+	@apply flex items-center justify-between;
+}
+
+.projectTitle {
+	@apply text-lg font-medium text-foreground;
+}
+
+.progressWrapper {
+	@apply flex gap-x-2 pl-1.5 pr-2 py-1 justify-between rounded-full border border-success bg-success-50/20;
+}
+
+.progressIndicator {
+	@apply flex items-center justify-center w-3.5 h-3.5 rounded-full bg-success/30 border border-success/50;
+}
+
+.progressText {
+	@apply text-tiny text-center text-success-700;
+}
+
+.projectDescription {
+	@apply text-small text-foreground/70;
+}
+
+.projectFooter {
+	@apply flex items-center justify-between;
+}
+
+.footerInfo {
+	@apply flex gap-2 text-foreground/70;
+}
+
+.footerText {
+	@apply text-tiny;
+}
+
+.skeletonCard {
+	@apply border border-default-300 rounded-small grid grid-rows-[2rem,1fr,2rem] gap-2 py-2 px-4 h-36;
+}
+
+.skeletonHeader {
+	@apply flex items-center justify-between;
+}
+
+.skeletonBody {
+	@apply flex flex-col gap-2;
+}
+
+.gridContainer {
+	@apply grid grid-cols-[repeat(auto-fill,minmax(18rem,1fr))] gap-4;
+}
+
+.container {
+	@apply flex flex-col gap-8;
+}
+
+.pageTitle {
+	@apply text-2xl font-medium;
+}

@@ -1,0 +1,19 @@
+.orgFormContainer {
+	@apply grid place-items-center bg-gradient-to-bl from-primary-400 to-secondary-400 min-h-screen;
+}
+
+.orgFormCard {
+	@apply bg-background p-6 rounded-lg shadow-lg w-96 flex flex-col items-center justify-center;
+}
+
+.orgForm {
+	@apply space-y-4 w-full;
+}
+
+.orgFormTitle {
+	@apply font-bold text-center;
+}
+
+.btnGroup {
+	@apply flex gap-4 justify-center;
+}

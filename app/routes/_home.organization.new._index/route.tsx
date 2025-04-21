@@ -2,9 +2,11 @@ import { Button } from '@heroui/button';
 import { Input, Textarea } from '@heroui/input';
 import { Form, useNavigate } from '@remix-run/react';
 import { axios } from '@shared/lib/axios';
+import { getSessionToken } from '@shared/lib/session';
 import { SuccessBackendResponse } from '@shared/types';
 import { useMutation } from '@tanstack/react-query';
 import { FormEvent, ReactNode } from 'react';
+import styles from './new-organization.module.css';
 
 type MutationResponse = {
 	id: string;
@@ -18,10 +20,18 @@ const CreateOrganizationForm = (): ReactNode => {
 			const name = String(data.get('name') || '');
 			const description = String(data.get('description') || '');
 
-			const response = await axios.post('/organizations', {
-				name,
-				description,
-			});
+			const response = await axios.post(
+				'/organizations',
+				{
+					name,
+					description,
+				},
+				{
+					headers: {
+						authorization: `Bearer ${getSessionToken()}`,
+					},
+				},
+			);
 
 			return response.data as SuccessBackendResponse<MutationResponse>;
 		},
@@ -35,19 +45,16 @@ const CreateOrganizationForm = (): ReactNode => {
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
 		e.preventDefault();
-
 		createOrganizationMutation.mutate(
 			new FormData(e.target as HTMLFormElement),
 		);
 	};
 
 	return (
-		<div className='grid place-items-center bg-gradient-to-bl from-primary-400 to-secondary-400'>
-			<div className='bg-background p-6 rounded-lg shadow-lg w-96 items-center justify-center flex flex-col'>
-				<Form className='space-y-4 w-full' onSubmit={handleSubmit}>
-					<h1 className='font-bold text-center'>
-						Create Organization
-					</h1>
+		<div className={styles.orgFormContainer}>
+			<div className={styles.orgFormCard}>
+				<Form className={styles.orgForm} onSubmit={handleSubmit}>
+					<h1 className={styles.orgFormTitle}>Create Organization</h1>
 
 					<Input
 						label='Name'
@@ -55,14 +62,13 @@ const CreateOrganizationForm = (): ReactNode => {
 						isRequired={true}
 						name='name'
 					/>
-
 					<Textarea
 						label='Short Description'
 						isRequired={true}
 						name='description'
 					/>
 
-					<div className='flex gap-4 justify-center'>
+					<div className={styles.btnGroup}>
 						<Button
 							className='w-full'
 							color='danger'
@@ -71,7 +77,6 @@ const CreateOrganizationForm = (): ReactNode => {
 						>
 							Cancel
 						</Button>
-
 						<Button
 							className='w-full'
 							color='primary'
