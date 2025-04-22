@@ -2,7 +2,7 @@ import { Button } from '@heroui/button';
 import { Input, Textarea } from '@heroui/input';
 import { Form, useNavigate } from '@remix-run/react';
 import { axios } from '@shared/lib/axios';
-import { getSessionToken } from '@shared/lib/session';
+import { useSession } from '@shared/lib/session';
 import { SuccessBackendResponse } from '@shared/types';
 import { useMutation } from '@tanstack/react-query';
 import { FormEvent, ReactNode } from 'react';
@@ -14,6 +14,7 @@ type MutationResponse = {
 
 const CreateOrganizationForm = (): ReactNode => {
 	const navigate = useNavigate();
+	const { token } = useSession();
 
 	const createOrganizationMutation = useMutation({
 		mutationFn: async (data: FormData) => {
@@ -28,15 +29,15 @@ const CreateOrganizationForm = (): ReactNode => {
 				},
 				{
 					headers: {
-						authorization: `Bearer ${getSessionToken()}`,
+						authorization: `Bearer ${token}`,
 					},
 				},
 			);
 
 			return response.data as SuccessBackendResponse<MutationResponse>;
 		},
-		onSuccess: (response) => {
-			navigate(`/organization/${response.data.id}`);
+		onSuccess: () => {
+			navigate('/organization');
 		},
 		onError: (error) => {
 			console.log('Error creating organization:', error);

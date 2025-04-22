@@ -46,7 +46,8 @@ const ProjectCard = ({
 
 const Projects = () => {
 	const sessionToken = useSession().token;
-	const { currentOrganization } = useOrganization();
+	const { currentOrganization, refetchOrganizations } = useOrganization();
+	refetchOrganizations();
 	const projectsQuery = useQuery({
 		queryKey: ['projects'],
 		queryFn: async () => {

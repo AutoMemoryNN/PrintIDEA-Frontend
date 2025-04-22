@@ -1,14 +1,15 @@
+import { Select, SelectItem } from '@heroui/select';
 import {
-	CalendarBlank,
 	CheckSquareOffset,
 	Folders,
 	Gear,
 	Icon,
 	Question,
 	SquaresFour,
-	Users,
 } from '@phosphor-icons/react';
+import { BookBookmark } from '@phosphor-icons/react/dist/ssr';
 import { Link, useLocation } from '@remix-run/react';
+import { useOrganization } from '@shared/context/organization';
 import { useSession } from '@shared/lib/session';
 import { dataAttr } from '@shared/lib/utils';
 
@@ -61,9 +62,27 @@ const SideBarSection = ({
 
 export function SideBar(): React.ReactNode {
 	const session = useSession();
+	const { organizations, currentOrganization, setCurrentOrganization } =
+		useOrganization();
 
 	const userAlias = session.alias;
 	const userEmail = session.email;
+
+	interface OrganizationChangeEvent {
+		target: {
+			value: string;
+		};
+	}
+
+	const handleOrganizationChange = (e: OrganizationChangeEvent): void => {
+		const selectedOrgId = e.target.value;
+		const selectedOrg = organizations.find(
+			(org) => org.id === selectedOrgId,
+		);
+		if (selectedOrg) {
+			setCurrentOrganization(selectedOrg);
+		}
+	};
 
 	return (
 		<>
@@ -75,6 +94,23 @@ export function SideBar(): React.ReactNode {
 					</h3>
 					<p className='text-small text-default-600'>{userEmail}</p>
 				</div>
+
+				<div className='mb-2'>
+					<Select
+						label='Select Organization'
+						selectedKeys={
+							currentOrganization ? [currentOrganization.id] : []
+						}
+						onChange={handleOrganizationChange}
+						className='w-full'
+						size='sm'
+					>
+						{organizations.map((org) => (
+							<SelectItem key={org.id}>{org.name}</SelectItem>
+						))}
+					</Select>
+				</div>
+
 				<div className='bg-default-300 w-[23rem] h-px relative -translate-x-[2rem]' />
 				<div className='flex flex-col gap-8'>
 					<SideBarSection title='Main'>
@@ -95,13 +131,11 @@ export function SideBar(): React.ReactNode {
 						/>
 						<SideBarLink
 							to='/calendar'
-							icon={CalendarBlank}
-							label='Calendar'
+							icon={BookBookmark}
+							label='Board'
 						/>
 					</SideBarSection>
-					<SideBarSection title='Team'>
-						<SideBarLink to='/team' icon={Users} label='Members' />
-					</SideBarSection>
+
 					<SideBarSection title='Settings'>
 						<SideBarLink
 							to='/settings'

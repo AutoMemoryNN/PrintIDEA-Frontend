@@ -1,3 +1,4 @@
+import { useNavigate } from '@remix-run/react';
 import { axios } from '@shared/lib/axios';
 import { useSession } from '@shared/lib/session';
 import type { Organization, SuccessBackendResponse } from '@shared/types';
@@ -17,8 +18,11 @@ const OrganizationContext = createContext<OrganizationContextType | null>(null);
 
 export function OrganizationProvider({
 	children,
-}: { children: React.ReactNode }) {
+}: {
+	children: React.ReactNode;
+}) {
 	const { token } = useSession();
+	const navigate = useNavigate();
 	const [currentOrganization, setCurrentOrganization] =
 		useState<Organization | null>(null);
 
@@ -37,11 +41,17 @@ export function OrganizationProvider({
 					authorization: `Bearer ${token}`,
 				},
 			});
-			console.log({ organizations: response.data.data });
 			return response.data.data;
 		},
 		enabled: !!token,
+		retry: false,
 	});
+
+	useEffect(() => {
+		if (isError) {
+			navigate('/organization/new');
+		}
+	}, [isError, navigate]);
 
 	useEffect(() => {
 		if (organizations.length > 0 && !currentOrganization) {
