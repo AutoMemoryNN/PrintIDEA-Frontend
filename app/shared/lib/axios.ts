@@ -51,7 +51,7 @@ class AxiosSingleton {
 			(error) => {
 				if (error.response.status === 401) {
 					cookies.remove('session');
-					window.location.href = '/login';
+					window.location.href = '/auth';
 				}
 
 				return Promise.reject(error);

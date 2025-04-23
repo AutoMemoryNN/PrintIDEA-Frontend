@@ -21,7 +21,7 @@ export function OrganizationProvider({
 }: {
 	children: React.ReactNode;
 }) {
-	const { token } = useSession();
+	const { token, email } = useSession();
 	const navigate = useNavigate();
 	const [currentOrganization, setCurrentOrganization] =
 		useState<Organization | null>(null);
@@ -32,7 +32,7 @@ export function OrganizationProvider({
 		isError,
 		refetch,
 	} = useQuery({
-		queryKey: ['organizations', token],
+		queryKey: [`organizations ${email}`],
 		queryFn: async () => {
 			const response = await axios.get<
 				SuccessBackendResponse<Organization[]>

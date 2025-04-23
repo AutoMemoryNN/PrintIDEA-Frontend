@@ -1,5 +1,5 @@
 import { Skeleton } from '@heroui/skeleton';
-import { CalendarDots, CheckSquare } from '@phosphor-icons/react';
+import { Chalkboard, CheckSquare, Target } from '@phosphor-icons/react';
 import { Link } from '@remix-run/react';
 import { useOrganization } from '@shared/context/organization';
 import { axios } from '@shared/lib/axios';
@@ -8,14 +8,8 @@ import type { Project, SuccessBackendResponse } from '@shared/types';
 import { useQuery } from '@tanstack/react-query';
 import styles from './organization.module.css';
 
-const ProjectCard = ({
-	id,
-	name,
-	description,
-	totalTasks,
-	completedTasks,
-}: Project) => {
-	const progress = (completedTasks / totalTasks) * 100;
+const ProjectCard = ({ id, name, description, boardId }: Project) => {
+	const progress = (20 / 50) * 100;
 	const to = `/organization/projects/${id}`;
 
 	return (
@@ -30,13 +24,18 @@ const ProjectCard = ({
 			<p className={styles.projectDescription}>{description}</p>
 			<div className={styles.projectFooter}>
 				<div className={styles.footerInfo}>
+					<Link to={`/organization/project/${id}/boards/${boardId}`}>
+						<Chalkboard size={16} />
+					</Link>
+				</div>
+				<div className={styles.footerInfo}>
 					<CheckSquare size={16} />
 					<span className={styles.footerText}>
-						{completedTasks}/{totalTasks}
+						{}/{} {/* TODO: Replace with actual task count */}
 					</span>
 				</div>
 				<div className={styles.footerInfo}>
-					<CalendarDots size={16} />
+					<Target size={16} />
 					<span className={styles.footerText}>Jan 19</span>
 				</div>
 			</div>
@@ -46,13 +45,17 @@ const ProjectCard = ({
 
 const Projects = () => {
 	const sessionToken = useSession().token;
-	const { currentOrganization, refetchOrganizations } = useOrganization();
-	refetchOrganizations();
+	const { currentOrganization } = useOrganization();
+
 	const projectsQuery = useQuery({
-		queryKey: ['projects'],
+		queryKey: ['projects', currentOrganization?.id],
 		queryFn: async () => {
+			if (!currentOrganization?.id) {
+				return [];
+			}
+
 			const response = await axios.get<SuccessBackendResponse<Project[]>>(
-				`/projects/${currentOrganization?.id}`,
+				`/projects/${currentOrganization.id}`,
 				{
 					headers: {
 						authorization: `Bearer ${sessionToken}`,
@@ -60,14 +63,18 @@ const Projects = () => {
 				},
 			);
 
-			console.log({ projects: response.data });
-
 			return response.data.data;
 		},
+		enabled: !!currentOrganization?.id && !!sessionToken,
 	});
 
-	const skeletons = Array.from({ length: 3 }, () => (
-		<div className={styles.skeletonCard} key={crypto.randomUUID()}>
+	const skeletonIds = [
+		'skeleton-card-1',
+		'skeleton-card-2',
+		'skeleton-card-3',
+	];
+	const skeletons = skeletonIds.map((id) => (
+		<div className={styles.skeletonCard} key={id}>
 			<div className={styles.skeletonHeader}>
 				<div className='flex items-center gap-2'>
 					<Skeleton className='rounded-small w-24 h-4' />
@@ -90,19 +97,23 @@ const Projects = () => {
 	const projects = projectsQuery.data?.map((project) => (
 		<ProjectCard
 			id={project.id}
-			key={project.name}
+			key={project.id}
 			name={project.name}
 			description={project.description}
 			status={project.status}
 			priority={project.priority}
-			totalTasks={project.totalTasks}
-			completedTasks={project.completedTasks}
+			startDate={project.startDate}
+			endDate={project.endDate}
+			organizationId={project.organizationId}
+			boardId={project.boardId}
 		/>
 	));
 
 	return (
 		<div className={styles.gridContainer}>
-			{projectsQuery.isLoading ? skeletons : projects}
+			{projectsQuery.isLoading || !currentOrganization
+				? skeletons
+				: projects}
 		</div>
 	);
 };

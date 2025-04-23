@@ -1,5 +1,6 @@
 import { Select, SelectItem } from '@heroui/select';
 import {
+	Chalkboard,
 	CheckSquareOffset,
 	Folders,
 	Gear,
@@ -7,7 +8,7 @@ import {
 	Question,
 	SquaresFour,
 } from '@phosphor-icons/react';
-import { BookBookmark } from '@phosphor-icons/react/dist/ssr';
+import {} from '@phosphor-icons/react/dist/ssr';
 import { Link, useLocation } from '@remix-run/react';
 import { useOrganization } from '@shared/context/organization';
 import { useSession } from '@shared/lib/session';
@@ -131,7 +132,7 @@ export function SideBar(): React.ReactNode {
 						/>
 						<SideBarLink
 							to='/calendar'
-							icon={BookBookmark}
+							icon={Chalkboard}
 							label='Board'
 						/>
 					</SideBarSection>

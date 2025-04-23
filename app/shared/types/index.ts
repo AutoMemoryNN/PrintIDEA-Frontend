@@ -37,8 +37,8 @@ export interface Project {
 	description: string;
 	status: string;
 	priority: string;
-	totalTasks: number;
-	completedTasks: number;
 	startDate?: string | undefined;
 	endDate?: string | undefined;
+	organizationId: string;
+	boardId: string;
 }
