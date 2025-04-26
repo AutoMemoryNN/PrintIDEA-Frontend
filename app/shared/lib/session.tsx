@@ -15,8 +15,10 @@ export async function getTokenData(
 	const publicKey = await importSPKI(publicKeyPEM, 'RS256');
 
 	try {
-		const session = await jwtVerify(token, publicKey);
-		return session as unknown as SessionData;
+		const { payload } = await jwtVerify(token, publicKey);
+		const { id, username, alias, email, role } = payload;
+		const session = { id, username, alias, email, role, token };
+		return session as SessionData;
 	} catch (_error) {
 		return null;
 	}

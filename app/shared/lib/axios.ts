@@ -46,23 +46,17 @@ class AxiosSingleton {
 			return config;
 		});
 
-		this.axiosInstance.interceptors.request.use((config) => {
-			if (config.url) {
-				const [url, query] = config.url.split('?');
-
-				if (!url.endsWith('/')) {
-					config.url = `${url}/`;
+		this.axiosInstance.interceptors.response.use(
+			(response) => response,
+			(error) => {
+				if (error.response.status === 401) {
+					cookies.remove('session');
+					window.location.href = '/auth';
 				}
 
-				if (query) {
-					config.url = `${config.url}?${query}`;
-				}
-
-				return config;
-			}
-
-			return config;
-		});
+				return Promise.reject(error);
+			},
+		);
 	}
 
 	/**

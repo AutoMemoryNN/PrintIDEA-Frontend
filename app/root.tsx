@@ -10,7 +10,7 @@ import {
 	Scripts,
 	ScrollRestoration,
 } from '@remix-run/react';
-import { AppFooter } from '@shared/components/layout/app-footer';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import React from 'react';
 
@@ -37,6 +37,7 @@ const msalInstance = new PublicClientApplication({
 		navigateToLoginRequestUrl: false,
 	},
 });
+const queryClient = new QueryClient();
 
 export function Layout({
 	children,
@@ -58,7 +59,6 @@ export function Layout({
 					<ScrollRestoration />
 					<Scripts />
 				</HeroUIProvider>
-				<AppFooter />
 			</body>
 		</html>
 	);
@@ -66,8 +66,10 @@ export function Layout({
 
 export default function App(): React.ReactNode {
 	return (
-		<MsalProvider instance={msalInstance}>
-			<Outlet />
-		</MsalProvider>
+		<QueryClientProvider client={queryClient}>
+			<MsalProvider instance={msalInstance}>
+				<Outlet />
+			</MsalProvider>
+		</QueryClientProvider>
 	);
 }

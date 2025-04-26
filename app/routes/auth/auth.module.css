@@ -1,0 +1,7 @@
+.app-container {
+	@apply min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-400 to-secondary-400 dark:from-gray-900 dark:to-gray-800;
+}
+
+.decorative-box {
+	@apply flex flex-col items-center justify-center rounded-lg shadow-lg bg-white;
+}

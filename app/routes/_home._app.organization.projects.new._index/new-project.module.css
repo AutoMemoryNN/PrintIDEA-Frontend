@@ -1,0 +1,63 @@
+.modalOverlay {
+	@apply fixed inset-0 flex items-center justify-center bg-black/50 z-50;
+}
+
+.modalContent {
+	@apply bg-white rounded-large shadow-large p-6 w-full max-w-3xl;
+}
+
+.modalHeader {
+	@apply flex justify-between items-center mb-6;
+}
+
+.modalTitle {
+	@apply text-xl font-medium;
+}
+
+.closeButton {
+	@apply text-default-400 hover:text-default-500;
+}
+
+.formContainer {
+	@apply flex flex-col gap-6;
+}
+
+.formRow {
+	@apply flex gap-4 w-full;
+}
+
+.inputName {
+	@apply w-full;
+}
+
+.inputStatus {
+	@apply w-1/2;
+}
+
+.inputPriority {
+	@apply w-1/2;
+}
+
+.dateRangeContainer {
+	@apply w-full;
+}
+
+.dateRangePicker {
+	@apply w-full;
+}
+
+.inputWrapper {
+	@apply w-full;
+}
+
+.inputDescription {
+	@apply w-full;
+}
+
+.textarea {
+	@apply w-full min-h-[200px];
+}
+
+.formActions {
+	@apply flex justify-end gap-2 mt-4;
+}

@@ -142,7 +142,7 @@
 				"useAwait": "error"
 			},
 			"nursery": {
-				"useExplicitType": "error"
+				"useExplicitType": "off"
 			}
 		}
 	}

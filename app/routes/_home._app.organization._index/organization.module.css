@@ -1,0 +1,78 @@
+.projectCard {
+	@apply border border-default-300 rounded-small py-4 px-6 mb-6 hover:shadow-small transition-shadow;
+	@apply break-inside-avoid-column;
+	display: inline-block;
+	width: 100%;
+
+	box-sizing: border-box;
+	max-width: 100%;
+	white-space: normal;
+	overflow-wrap: break-word;
+	word-break: break-word;
+}
+
+.projectHeader,
+.projectFooter {
+	@apply flex items-center justify-between mb-2;
+}
+
+.progressWrapper {
+	@apply flex gap-x-2 pl-1.5 pr-2 py-1 rounded-full border border-success bg-success-50/20;
+}
+
+.progressIndicator {
+	@apply flex items-center justify-center w-3.5 h-3.5 rounded-full bg-success/30 border border-success/50;
+}
+
+.progressText {
+	@apply text-tiny text-success-700;
+}
+
+.projectDescription {
+	@apply text-small text-foreground/70 mb-2;
+}
+
+.projectTitle {
+	@apply text-lg font-medium text-foreground;
+}
+
+.footerInfo {
+	@apply flex items-center gap-1 text-foreground/70;
+}
+
+.footerText {
+	@apply text-tiny;
+}
+
+.skeletonCard {
+	@apply border border-default-300 rounded-small py-4 px-6 mb-4 inline-block w-full;
+	break-inside: avoid;
+}
+
+.skeletonHeader,
+.skeletonBody {
+	@apply mb-2;
+}
+
+.container {
+	@apply flex flex-col gap-8;
+}
+
+.pageTitle {
+	@apply text-2xl font-medium;
+}
+
+.myMasonryGrid {
+	display: flex;
+	margin-left: -1rem;
+	width: auto;
+}
+
+.myMasonryGridColumn {
+	padding-left: 1rem;
+	background-clip: padding-box;
+}
+
+.myMasonryGridColumn > a {
+	margin-bottom: 1rem;
+}

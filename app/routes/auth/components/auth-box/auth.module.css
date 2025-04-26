@@ -1,7 +1,0 @@
-.authBox {
-	@apply bg-white p-6 rounded-lg shadow-md w-96 border border-gray-300 flex flex-col items-center justify-center space-y-4;
-}
-
-.welcomeText {
-	@apply text-2xl font-bold text-gray-700;
-}

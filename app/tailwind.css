@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+h1 {
+	@apply text-3xl font-bold text-gray-900 dark:text-white;
+}
+
 html,
 body {
 	@apply bg-white dark:bg-gray-950;
