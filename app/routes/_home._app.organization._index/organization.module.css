@@ -1,17 +1,23 @@
 .projectCard {
-	@apply border border-default-300 rounded-small grid grid-rows-[2rem,1fr,2rem] gap-2 py-2 px-4 h-36 hover:shadow-small transition-shadow;
+	@apply border border-default-300 rounded-small py-4 px-6 mb-6 hover:shadow-small transition-shadow;
+	@apply break-inside-avoid-column;
+	display: inline-block;
+	width: 100%;
+
+	box-sizing: border-box;
+	max-width: 100%;
+	white-space: normal;
+	overflow-wrap: break-word;
+	word-break: break-word;
 }
 
-.projectHeader {
-	@apply flex items-center justify-between;
-}
-
-.projectTitle {
-	@apply text-lg font-medium text-foreground;
+.projectHeader,
+.projectFooter {
+	@apply flex items-center justify-between mb-2;
 }
 
 .progressWrapper {
-	@apply flex gap-x-2 pl-1.5 pr-2 py-1 justify-between rounded-full border border-success bg-success-50/20;
+	@apply flex gap-x-2 pl-1.5 pr-2 py-1 rounded-full border border-success bg-success-50/20;
 }
 
 .progressIndicator {
@@ -19,19 +25,19 @@
 }
 
 .progressText {
-	@apply text-tiny text-center text-success-700;
+	@apply text-tiny text-success-700;
 }
 
 .projectDescription {
-	@apply text-small text-foreground/70;
+	@apply text-small text-foreground/70 mb-2;
 }
 
-.projectFooter {
-	@apply flex items-center justify-between;
+.projectTitle {
+	@apply text-lg font-medium text-foreground;
 }
 
 .footerInfo {
-	@apply flex gap-2 text-foreground/70;
+	@apply flex items-center gap-1 text-foreground/70;
 }
 
 .footerText {
@@ -39,19 +45,13 @@
 }
 
 .skeletonCard {
-	@apply border border-default-300 rounded-small grid grid-rows-[2rem,1fr,2rem] gap-2 py-2 px-4 h-36;
+	@apply border border-default-300 rounded-small py-4 px-6 mb-4 inline-block w-full;
+	break-inside: avoid;
 }
 
-.skeletonHeader {
-	@apply flex items-center justify-between;
-}
-
+.skeletonHeader,
 .skeletonBody {
-	@apply flex flex-col gap-2;
-}
-
-.gridContainer {
-	@apply grid grid-cols-[repeat(auto-fill,minmax(18rem,1fr))] gap-4;
+	@apply mb-2;
 }
 
 .container {
@@ -60,4 +60,19 @@
 
 .pageTitle {
 	@apply text-2xl font-medium;
+}
+
+.myMasonryGrid {
+	display: flex;
+	margin-left: -1rem;
+	width: auto;
+}
+
+.myMasonryGridColumn {
+	padding-left: 1rem;
+	background-clip: padding-box;
+}
+
+.myMasonryGridColumn > a {
+	margin-bottom: 1rem;
 }
