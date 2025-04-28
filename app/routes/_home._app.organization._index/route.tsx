@@ -53,7 +53,7 @@ const ProjectCard = (project: Project) => {
 			</Link>
 			<div className={styles.projectFooter}>
 				<div className={styles.footerInfo}>
-					<Link to={`/organization/project/${id}/boards/${boardId}`}>
+					<Link to={`/organization/project/${id}/board/${boardId}`}>
 						<Chalkboard size={16} />
 					</Link>
 				</div>
@@ -95,7 +95,7 @@ const ProjectCard = (project: Project) => {
 									},
 								},
 							);
-							window.location.reload(); // TODO: use react-query to invalidate the cache
+							window.location.reload(); // TODO: manege state and response better
 						}}
 					>
 						<Trash size={16} color='orange' />
