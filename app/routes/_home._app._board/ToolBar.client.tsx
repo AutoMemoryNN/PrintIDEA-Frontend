@@ -47,9 +47,12 @@ export function Toolbar({ children }: ToolbarProps) {
 	];
 
 	return (
-		<>
-			<aside className='w-16 bg-gray-50 border-r border-gray-200 p-2 flex flex-col items-center gap-3'>
-				{/* TODO: make the aside bar occupy the half of the screen */}
+		<div className='relative w-full h-full'>
+			<div className='absolute inset-0 z-0 overflow-hidden'>
+				{children}
+			</div>
+
+			<aside className='absolute top-0 left-0 z-10 w-16 h-full bg-gray-50 border-r border-gray-200 p-2 flex flex-col items-center gap-3'>
 				{tools.map((tool) => (
 					<Button
 						key={tool.type}
@@ -65,12 +68,10 @@ export function Toolbar({ children }: ToolbarProps) {
 						/>
 					</Button>
 				))}
-
 				<div className='mt-4 w-full border-t border-gray-200' />
-
-				{children}
 			</aside>
+
 			<AccessoryToolbar />
-		</>
+		</div>
 	);
 }

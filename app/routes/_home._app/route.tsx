@@ -8,6 +8,7 @@ export default function AppLayout(): ReactNode {
 		<OrganizationProvider>
 			<div className='grid grid-cols-[22rem,1fr] bg-background h-dvh w-dvw overflow-hidden'>
 				<SideBar />
+				{/* TODO: Solve padding problem with the board */}
 				<main className='p-8'>
 					<Outlet />
 				</main>

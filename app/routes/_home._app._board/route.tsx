@@ -13,7 +13,7 @@ export default function BoardLayout() {
 	return (
 		<div>
 			{isClient ? (
-				<div className='board-container'>
+				<div className='w-full h-screen'>
 					<ToolBoardProvider>
 						<Toolbar>
 							<Outlet />
