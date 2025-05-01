@@ -3,7 +3,7 @@ import { Layer, Rect, Stage } from 'react-konva';
 
 export function Board() {
 	const toolBar = useToolBoard();
-	console.log(toolBar.action);
+	console.log(toolBar);
 
 	return (
 		<Stage width={window.innerWidth} height={window.innerHeight}>

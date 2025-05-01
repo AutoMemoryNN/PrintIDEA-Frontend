@@ -13,7 +13,11 @@ export enum ActionType {
 
 interface ToolBoardContextType {
 	action: ActionType;
-	setAction: (action: ActionType) => void;
+	setAction: (a: ActionType) => void;
+	strokeColor: string;
+	setStrokeColor: (c: string) => void;
+	strokeWidth: number;
+	setStrokeWidth: (w: number) => void;
 }
 
 const ToolBoardContext = createContext<ToolBoardContextType | undefined>(
@@ -22,17 +26,29 @@ const ToolBoardContext = createContext<ToolBoardContextType | undefined>(
 
 export function ToolBoardProvider({ children }: { children: ReactNode }) {
 	const [action, setAction] = useState<ActionType>(ActionType.SELECT);
+	const [strokeColor, setStrokeColor] = useState<string>('#000000');
+	const [strokeWidth, setStrokeWidth] = useState<number>(2);
+
 	return (
-		<ToolBoardContext.Provider value={{ action, setAction }}>
+		<ToolBoardContext.Provider
+			value={{
+				action,
+				setAction,
+				strokeColor,
+				setStrokeColor,
+				strokeWidth,
+				setStrokeWidth,
+			}}
+		>
 			{children}
 		</ToolBoardContext.Provider>
 	);
 }
 
 export function useToolBoard(): ToolBoardContextType {
-	const context = useContext(ToolBoardContext);
-	if (!context) {
-		throw new Error('useBoard must be used within a BoardProvider');
+	const ctx = useContext(ToolBoardContext);
+	if (!ctx) {
+		throw new Error('useToolBoard must be used within a ToolBoardProvider');
 	}
-	return context;
+	return ctx;
 }

@@ -11,6 +11,7 @@ import {
 import { Button } from '@heroui/button';
 import { TextT } from '@phosphor-icons/react/dist/ssr';
 import React from 'react';
+import { AccessoryToolbar } from './AccessoryToolBar.client';
 import { ActionType, useToolBoard } from './BoardToolContext.client';
 
 export interface ToolbarProps extends React.PropsWithChildren {}
@@ -46,27 +47,30 @@ export function Toolbar({ children }: ToolbarProps) {
 	];
 
 	return (
-		<aside className='w-16 bg-gray-50 border-r border-gray-200 p-2 flex flex-col items-center gap-3'>
-			{/* TODO: make the aside bar occupy the half of the screen */}
-			{tools.map((tool) => (
-				<Button
-					key={tool.type}
-					size={buttonConfig.size}
-					onPress={() => setAction(tool.type)}
-					className={getButtonClass(tool.type)}
-					aria-label={tool.title}
-					title={tool.title}
-				>
-					<tool.icon
-						size={buttonConfig.iconSize}
-						weight={action === tool.type ? 'fill' : 'regular'}
-					/>
-				</Button>
-			))}
+		<>
+			<aside className='w-16 bg-gray-50 border-r border-gray-200 p-2 flex flex-col items-center gap-3'>
+				{/* TODO: make the aside bar occupy the half of the screen */}
+				{tools.map((tool) => (
+					<Button
+						key={tool.type}
+						size={buttonConfig.size}
+						onPress={() => setAction(tool.type)}
+						className={getButtonClass(tool.type)}
+						aria-label={tool.title}
+						title={tool.title}
+					>
+						<tool.icon
+							size={buttonConfig.iconSize}
+							weight={action === tool.type ? 'fill' : 'regular'}
+						/>
+					</Button>
+				))}
 
-			<div className='mt-4 w-full border-t border-gray-200' />
+				<div className='mt-4 w-full border-t border-gray-200' />
 
-			{children}
-		</aside>
+				{children}
+			</aside>
+			<AccessoryToolbar />
+		</>
 	);
 }
