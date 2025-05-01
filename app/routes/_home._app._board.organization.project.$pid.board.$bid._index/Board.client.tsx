@@ -1,7 +1,10 @@
+import { useToolBoard } from '@routes/_home._app._board/BoardToolContext.client';
 import { Layer, Rect, Stage } from 'react-konva';
 
-export function ProjectCanvas() {
-	// Aquí podrías leer props o estado, agregar más shapes, handlers, etc.
+export function Board() {
+	const toolBar = useToolBoard();
+	console.log(toolBar.action);
+
 	return (
 		<Stage width={window.innerWidth} height={window.innerHeight}>
 			<Layer>
