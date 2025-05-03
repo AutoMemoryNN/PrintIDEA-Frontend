@@ -144,7 +144,9 @@ export function useBoard() {
 							y,
 							width: 100,
 							height: 100,
-							fillColor: 'transparent',
+							fillColor: strokeColor.startsWith('#')
+								? `${strokeColor}33`
+								: 'rgba(0,0,0,0.2)',
 							strokeColor,
 							strokeWidth,
 							text: {
@@ -245,38 +247,47 @@ export function useBoard() {
 		},
 		[action],
 	);
+
 	const handleShapeDblClick = useCallback(
 		(e: KonvaEventObject<MouseEvent>) => {
 			const node = e.target;
-
-			e.cancelBubble = true;
-
-			if (node.getClassName() !== 'Text') {
-				return;
-			}
-
 			const shapeId = node.id();
 
-			setShapes((prev) =>
-				prev.map((s) => {
-					if (s.id !== shapeId || s.type !== 'text') {
-						return s;
+			setShapes((prev: Shape[]) =>
+				prev.map((s: Shape) => {
+					if (s.type === 'text' && s.id === shapeId) {
+						const newText = window.prompt(
+							'Edit text:',
+							(s as TextShape).text,
+						);
+						return newText != null ? { ...s, text: newText } : s;
 					}
-
-					const newText = window.prompt('Edit text:', s.text);
-					return newText == null ? s : { ...s, text: newText };
+					if (
+						s.type === 'note' &&
+						(s as NoteShape).text.id === shapeId
+					) {
+						const newText = window.prompt(
+							'Edit note text:',
+							(s as NoteShape).text.text,
+						);
+						if (newText != null) {
+							return {
+								...s,
+								text: {
+									...(s as NoteShape).text,
+									text: newText,
+								},
+							};
+						}
+					}
+					return s;
 				}),
 			);
 		},
 		[],
 	);
-	interface StageClickEvent {
-		evt: {
-			detail: number;
-		};
-	}
 
-	const handleStageClick = useCallback((e: StageClickEvent) => {
+	const handleStageClick = useCallback((e: KonvaEventObject<MouseEvent>) => {
 		if (e.evt.detail !== 1) {
 			return;
 		}
