@@ -39,10 +39,22 @@ export interface LineShape extends BaseShape {
 
 export interface TextShape extends BaseShape {
 	type: 'text';
-	x: number;
-	y: number;
 	text: string;
 	fontSize: number;
+	width: number;
+	padding: number;
+	x: number;
+	y: number;
+}
+
+export interface NoteShape extends BaseShape {
+	type: 'note';
+	padding: number;
+	x: number;
+	y: number;
+	width: number;
+	height: number;
+	text: TextShape;
 }
 
 export type Shape =
@@ -51,4 +63,5 @@ export type Shape =
 	| ArrowShape
 	| ScribbleShape
 	| LineShape
-	| TextShape;
+	| TextShape
+	| NoteShape;

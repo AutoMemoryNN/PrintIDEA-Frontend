@@ -14,6 +14,7 @@ export function Board() {
 		handlePointerUp,
 		handleShapeClick,
 		handleStageClick,
+		handleShapeDblClick,
 	} = useBoard();
 
 	const [stageSize, setStageSize] = useState({
@@ -76,10 +77,19 @@ export function Board() {
 							shape={shape}
 							isDraggable={isDraggable}
 							onShapeClick={handleShapeClick}
+							onShapeDblClick={handleShapeDblClick}
 						/>
 					))}
 
-					<Transformer ref={transformerRef} />
+					<Transformer
+						ref={transformerRef}
+						listening={false}
+						enabledAnchors={['middle-left', 'middle-right']}
+						boundBoxFunc={(_oldBox, newBox) => ({
+							...newBox,
+							width: Math.max(30, newBox.width),
+						})}
+					/>
 				</Layer>
 			</Stage>
 		</div>

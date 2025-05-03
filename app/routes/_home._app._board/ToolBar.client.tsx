@@ -4,6 +4,7 @@ import {
 	Eraser,
 	HandPointing,
 	LineSegment,
+	NoteBlank,
 	Pencil,
 	Square,
 } from '@phosphor-icons/react';
@@ -37,6 +38,7 @@ export function Toolbar({ children }: ToolbarProps) {
 
 	const tools = [
 		{ type: ActionType.SELECT, title: 'Select', icon: HandPointing },
+		{ type: ActionType.NOTE, title: 'Note', icon: NoteBlank },
 		{ type: ActionType.RECTANGLE, title: 'Rectangle', icon: Square },
 		{ type: ActionType.CIRCLE, title: 'Circle', icon: Circle },
 		{ type: ActionType.LINE, title: 'Line', icon: LineSegment },

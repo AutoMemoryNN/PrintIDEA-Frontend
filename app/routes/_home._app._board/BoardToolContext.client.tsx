@@ -2,6 +2,7 @@ import { ReactNode, createContext, useContext, useState } from 'react';
 
 export enum ActionType {
 	SELECT = 'SELECT',
+	NOTE = 'NOTE',
 	RECTANGLE = 'RECTANGLE',
 	CIRCLE = 'CIRCLE',
 	ARROW = 'ARROW',

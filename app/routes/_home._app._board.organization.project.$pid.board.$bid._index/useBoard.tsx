@@ -10,9 +10,11 @@ import { v4 as uuidv4 } from 'uuid';
 import {
 	ArrowShape,
 	CircleShape,
+	NoteShape,
 	RectangleShape,
 	ScribbleShape,
 	Shape,
+	TextShape,
 } from './models/shapes';
 
 export function useBoard() {
@@ -46,6 +48,8 @@ export function useBoard() {
 
 			currentShapeId.current = id;
 			isPainting.current = true;
+
+			console.log(`Drawing ${action} at (${x}, ${y})`);
 
 			switch (action) {
 				case ActionType.RECTANGLE:
@@ -106,6 +110,55 @@ export function useBoard() {
 							strokeColor,
 							strokeWidth,
 						} as ScribbleShape,
+					]);
+					break;
+
+				case ActionType.TEXT:
+					setShapes((prev) => [
+						...prev,
+						{
+							id,
+							type: 'text',
+							x,
+							y,
+							text: 'Edit me',
+							fontSize: 20, // TODO: Add in the context ToolBar
+							width: 150,
+							padding: 4,
+							fillColor: 'black',
+							strokeColor: strokeColor,
+							strokeWidth: strokeWidth,
+							draggable: true,
+						} as TextShape,
+					]);
+					break;
+
+				case ActionType.NOTE:
+					setShapes((prev) => [
+						...prev,
+						{
+							id,
+							type: 'note',
+							padding: 10,
+							x,
+							y,
+							width: 100,
+							height: 100,
+							fillColor: 'transparent',
+							strokeColor,
+							strokeWidth,
+							text: {
+								id: `${id}-text`,
+								type: 'text',
+								x: x + 10,
+								y: y + 10,
+								text: 'Double click to edit',
+								fontSize: 20,
+								fillColor: 'black',
+								strokeColor: 'black',
+								strokeWidth: 0,
+							} as NoteShape['text'],
+						} as NoteShape,
 					]);
 					break;
 			}
@@ -192,15 +245,43 @@ export function useBoard() {
 		},
 		[action],
 	);
+	const handleShapeDblClick = useCallback(
+		(e: KonvaEventObject<MouseEvent>) => {
+			const node = e.target;
 
-	const handleStageClick = useCallback((e: KonvaEventObject<MouseEvent>) => {
-		if (e.target === e.currentTarget) {
-			setSelectedShapeId(null);
+			e.cancelBubble = true;
 
-			if (transformerRef.current) {
-				transformerRef.current.nodes([]);
+			if (node.getClassName() !== 'Text') {
+				return;
 			}
+
+			const shapeId = node.id();
+
+			setShapes((prev) =>
+				prev.map((s) => {
+					if (s.id !== shapeId || s.type !== 'text') {
+						return s;
+					}
+
+					const newText = window.prompt('Edit text:', s.text);
+					return newText == null ? s : { ...s, text: newText };
+				}),
+			);
+		},
+		[],
+	);
+	interface StageClickEvent {
+		evt: {
+			detail: number;
+		};
+	}
+
+	const handleStageClick = useCallback((e: StageClickEvent) => {
+		if (e.evt.detail !== 1) {
+			return;
 		}
+		setSelectedShapeId(null);
+		transformerRef.current?.nodes([]);
 	}, []);
 
 	const handleExport = useCallback(() => {
@@ -229,5 +310,6 @@ export function useBoard() {
 		handleShapeClick,
 		handleStageClick,
 		handleExport,
+		handleShapeDblClick,
 	};
 }
