@@ -54,7 +54,8 @@ export interface NoteShape extends BaseShape {
 	y: number;
 	width: number;
 	height: number;
-	text: TextShape;
+	text: string;
+	fontSize: number;
 }
 
 export type Shape =

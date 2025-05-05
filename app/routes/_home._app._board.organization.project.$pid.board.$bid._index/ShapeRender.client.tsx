@@ -90,6 +90,8 @@ export function ShapeRenderer({
 				/>
 			);
 		case 'note':
+			console.log('NOTE DRAWING');
+
 			return (
 				<Group
 					id={shape.id}
@@ -107,15 +109,15 @@ export function ShapeRenderer({
 						listening={false}
 					/>
 					<Text
-						id={shape.text.id}
-						text={shape.text.text}
+						id={`${shape.id}-text`}
+						text={shape.text}
 						x={shape.padding}
 						y={shape.padding}
 						width={shape.width - shape.padding * 2}
 						padding={shape.padding}
-						fontSize={shape.text.fontSize}
+						fontSize={shape.fontSize}
 						wrap='word'
-						fill={shape.text.fillColor}
+						fill='black'
 						hitStrokeWidth={50}
 						perfectDrawEnabled={false}
 						onClick={onShapeClick}

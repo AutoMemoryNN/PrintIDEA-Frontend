@@ -18,7 +18,7 @@ export default function Index(): React.ReactElement {
 		event.preventDefault();
 		const formData = new FormData(event.target as HTMLFormElement);
 		const nickname = formData.get('username') as string;
-
+		// TODO: Add validation for nickname
 		try {
 			const response = await axios.post('/your-endpoint', {
 				alias: nickname,

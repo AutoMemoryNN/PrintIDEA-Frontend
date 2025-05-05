@@ -149,17 +149,8 @@ export function useBoard() {
 								: 'rgba(0,0,0,0.2)',
 							strokeColor,
 							strokeWidth,
-							text: {
-								id: `${id}-text`,
-								type: 'text',
-								x: x + 10,
-								y: y + 10,
-								text: 'Double click to edit',
-								fontSize: 20,
-								fillColor: 'black',
-								strokeColor: 'black',
-								strokeWidth: 0,
-							} as NoteShape['text'],
+							text: 'Double click to edit',
+							fontSize: 20,
 						} as NoteShape,
 					]);
 					break;
@@ -262,21 +253,15 @@ export function useBoard() {
 						);
 						return newText != null ? { ...s, text: newText } : s;
 					}
-					if (
-						s.type === 'note' &&
-						(s as NoteShape).text.id === shapeId
-					) {
+					if (s.type === 'note' && s.id === shapeId) {
 						const newText = window.prompt(
 							'Edit note text:',
-							(s as NoteShape).text.text,
+							(s as NoteShape).text,
 						);
 						if (newText != null) {
 							return {
 								...s,
-								text: {
-									...(s as NoteShape).text,
-									text: newText,
-								},
+								text: newText,
 							};
 						}
 					}
@@ -291,6 +276,7 @@ export function useBoard() {
 		if (e.evt.detail !== 1) {
 			return;
 		}
+
 		setSelectedShapeId(null);
 		transformerRef.current?.nodes([]);
 	}, []);
@@ -311,6 +297,7 @@ export function useBoard() {
 
 	return {
 		shapes,
+		setShapes,
 		selectedShapeId,
 		stageRef,
 		transformerRef,

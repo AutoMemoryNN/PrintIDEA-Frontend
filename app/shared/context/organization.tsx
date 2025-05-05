@@ -49,6 +49,7 @@ export function OrganizationProvider({
 
 	useEffect(() => {
 		if (isError) {
+			// TODO: limit the errors that redirect to the new organization page
 			navigate('/organization/new');
 		}
 	}, [isError, navigate]);
